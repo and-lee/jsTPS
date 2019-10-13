@@ -1,8 +1,9 @@
 /**
  *
  */
-class OrMask_Transaction extends jsTPS_Transaction {
+//import jsTPS_Transaction from "./jsTPS_Transaction.js";
 
+class AndMask_Transaction extends jsTPS_Transaction {
     /**
      * Constructor for this transaction, it initializes this
      * object with all the data needed to both do and undo
@@ -16,20 +17,20 @@ class OrMask_Transaction extends jsTPS_Transaction {
         // THIS IS THE OBJECT IT WILL MANIPULATE
         this.num = initNum;
         this.intNum = initIntNum;
-
+        
         // AMOUNT TO MASK FOR NUM
         this.mask = initMask;
     }
 
     /**
-     * This transaction masks the num.
+     * This transaction adds the mask to the num.
      */
     doTransaction() {
-        this.num.orMask(this.mask);
+        this.num.andMask(this.mask);
     }
 
     /**
-     * As the reverse of do, this method unmasks num.
+     * As the reverse of do, this method removes the mask from num.
      */
     undoTransaction() {
         this.num.setNum(this.intNum);
@@ -41,6 +42,6 @@ class OrMask_Transaction extends jsTPS_Transaction {
      * @return A string storing a textual summary of this object.
      */
     toString() {
-        return "Or Mask " + this.mask;
+        return "And Mask " + this.mask;
     }
 }

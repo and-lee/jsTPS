@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>jsTPS Unit Tester</title>
+
+    <script src="./jsTPS.js"></script>
+    <script src="./jsTPS_Transaction.js"></script>
+    <script src="./Num.js"></script>
+    <script src="./AddToNum_Transaction.js"></script>
+    <script src="./OrMask_Transaction.js"></script>
+    <script src="./AndMask_Transaction.js"></script>
+
+    <script>      
+      var tps = new jsTPS();
+      var num = new Num();
+
+      function add() {
+        let addAmount = parseFloat(document.getElementById("addAmount").value);
+        let transaction = new AddToNum_Transaction(num, addAmount);
+        tps.addTransaction(transaction);
+
+        document.getElementById("value").innerHTML = num.getNum();
+        document.getElementById("currTPS").innerHTML =tps.toString();
+        console.log(transaction);
+        console.log(tps);
+      }
+
+      function undo() {
+        tps.undoTransaction()
+
+        document.getElementById("value").innerHTML = num.getNum();
+        document.getElementById("currTPS").innerHTML =tps.toString();
+        console.log(tps);
+      }
+
+      function redo() {
+        tps.doTransaction();
+
+        document.getElementById("value").innerHTML = num.getNum();
+        document.getElementById("currTPS").innerHTML =tps.toString();
+        console.log(tps);
+      }
+
+      function clearAll() {
+        tps.clearAllTransactions();
+
+        document.getElementById("value").innerHTML = num.getNum();
+        document.getElementById("currTPS").innerHTML =tps.toString();
+        console.log(tps);
+      }
+
+      function reset() { // clear and reset amount
+        tps.clearAllTransactions(); //clear all transactions from the stack
+        num.setNum(0); // reset value
+
+        document.getElementById("value").innerHTML = num.getNum();
+        document.getElementById("currTPS").innerHTML =tps.toString();
+        console.log(tps);
+      }
+    </script>
+
+  </head>
+  
+  <body style="font-family:Arial, Helvetica, sans-serif;">
+    <div style="font-size: 42px">num is <span id = "value">0</span></div>    
+    
+    <h2>ENTER A SELECTION</h2>
+    <div style="font-size: 24px;">
+      Enter an amount to add: 
+      <input type = "number" id="addAmount" style="font-size: 24px;">
+    </div>
+    <button onclick="add()" style="font-size: 24px;">Add a Transaction</button>
+    <p><button onclick="undo()" style="font-size: 24px;">Undo a Transaction</button></p>
+    <p><button onclick="redo()" style="font-size: 24px;">Redo a Transaction</button></p>
+    <p><button onclick="clearAll()" style="font-size: 24px;">Clear All Transactions</button></p>
+    <p><button onclick="reset()" style="font-size: 24px;">Reset Num and Transactions</button></p>
+
+    <br>
+    <h2>CURRENT jsTPS:</h2>
+    <div id=currTPS></div>
+
+  </body>
+</html>
