@@ -17,6 +17,10 @@
 
       function add() {
         let addAmount = parseFloat(document.getElementById("addAmount").value);
+        if (isNaN(addAmount)) {
+          alert("Please enter a number.");
+          return;
+        }
         let transaction = new AddToNum_Transaction(num, addAmount);
         tps.addTransaction(transaction);
 
