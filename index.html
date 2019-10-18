@@ -10,57 +10,12 @@
     <script src="./test/AddToNum_Transaction.js"></script>
     <script src="./test/OrMask_Transaction.js"></script>
     <script src="./test/AndMask_Transaction.js"></script>
+    <script src="./test/jsTPS_Tester.js"></script>
 
-    <script>      
-      let tps = new jsTPS();
-      let num = new Num();
+    <script>
+      window.onload = function() {
+        window.jsTPSTester = new jsTPS_Tester();
 
-      function add() {
-        let addAmount = parseFloat(document.getElementById("addAmount").value);
-        if (isNaN(addAmount)) {
-          alert("Please enter a number.");
-          return;
-        }
-        let transaction = new AddToNum_Transaction(num, addAmount);
-        tps.addTransaction(transaction);
-
-        document.getElementById("value").innerHTML = num.getNum();
-        document.getElementById("currTPS").innerHTML =tps.toString();
-        console.log(transaction);
-        console.log(tps);
-      }
-
-      function undo() {
-        tps.undoTransaction()
-
-        document.getElementById("value").innerHTML = num.getNum();
-        document.getElementById("currTPS").innerHTML =tps.toString();
-        console.log(tps);
-      }
-
-      function redo() {
-        tps.doTransaction();
-
-        document.getElementById("value").innerHTML = num.getNum();
-        document.getElementById("currTPS").innerHTML =tps.toString();
-        console.log(tps);
-      }
-
-      function clearAll() {
-        tps.clearAllTransactions();
-
-        document.getElementById("value").innerHTML = num.getNum();
-        document.getElementById("currTPS").innerHTML =tps.toString();
-        console.log(tps);
-      }
-
-      function reset() { // clear and reset amount
-        tps.clearAllTransactions(); //clear all transactions from the stack
-        num.setNum(0); // reset value
-
-        document.getElementById("value").innerHTML = num.getNum();
-        document.getElementById("currTPS").innerHTML =tps.toString();
-        console.log(tps);
       }
     </script>
 
@@ -69,18 +24,18 @@
   <body style="font-family:Arial, Helvetica, sans-serif;">
     <div style="float: left; width:50%">
       <h2>DEMO</h2>
-      <div style="font-size: 42px">num is <span id = "value">0</span></div>  
+      <div style="font-size: 42px">num is <span id = "value"></span></div>  
       
       <h2>ENTER A SELECTION</h2>
       <div style="font-size: 24px;">
         Enter an amount to add: 
         <input type = "number" id="addAmount" style="font-size: 24px;" autocomplete='off'>
       </div>
-      <button onclick="add()" style="font-size: 24px;">Add a Transaction</button>
-      <p><button onclick="undo()" style="font-size: 24px;">Undo a Transaction</button></p>
-      <p><button onclick="redo()" style="font-size: 24px;">Redo a Transaction</button></p>
-      <p><button onclick="clearAll()" style="font-size: 24px;">Clear All Transactions</button></p>
-      <p><button onclick="reset()" style="font-size: 24px;">Reset Num and Transactions</button></p>
+      <button id="add" style="font-size: 24px;">Add a Transaction</button>
+      <p><button id="undo" style="font-size: 24px;">Undo a Transaction</button></p>
+      <p><button id="redo" style="font-size: 24px;">Redo a Transaction</button></p>
+      <p><button id="clearAll" style="font-size: 24px;">Clear All Transactions</button></p>
+      <p><button id="reset" style="font-size: 24px;">Reset Num and Transactions</button></p>
 
       <br>
       <h2>CURRENT jsTPS:</h2>
