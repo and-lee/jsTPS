@@ -9,7 +9,7 @@ class jsTPS_Tester {
     constructor() {
         // HERE'S OUR TRANSACTION PROCESSING SYSTEM
         this.jsTPS = new jsTPS();
-    
+
         // HERE'S THE DATA WE'RE MANIPULATING IN THIS DEMO
         this.num = new Num();
 
@@ -19,13 +19,13 @@ class jsTPS_Tester {
         document.getElementById("clearAll").addEventListener("click", this["clearAll"].bind(this));
         document.getElementById("reset").addEventListener("click", this["reset"].bind(this));
 
-        document.getElementById("value").innerHTML = this.num.getNum(); // DISPLAY THE CURRENT TPS
-        document.getElementById("currTPS").innerHTML = this.jsTPS.toString(); // DISPLAY NUM
+        document.getElementById("value").innerHTML = this.num.getNum(); // DISPLAY NUM
+        document.getElementById("currTPS").innerHTML = this.jsTPS.toString(); // DISPLAY THE CURRENT TPS
     }
-    
+
     add() {
         let addAmount = parseInt(document.getElementById("addAmount").value); // GET THE USER SELECTION
-        
+
         if (isNaN(addAmount)) {
             alert("Please enter a number.");
             return;
@@ -33,7 +33,7 @@ class jsTPS_Tester {
         // ADD AND EXECUTE A TRANSACTION
         let transaction = new AddToNum_Transaction(this.num, addAmount);
         this.jsTPS.addTransaction(transaction);
-        
+
         this.updateJSTPSAndNum();
         console.log(transaction);
         console.log(this.jsTPS.toString());
@@ -68,10 +68,10 @@ class jsTPS_Tester {
         this.updateJSTPSAndNum();
         console.log(this.jsTPS.toString());
     }
-    
+
     updateJSTPSAndNum() {
-        // DISPLAY THE CURRENT TPS
         // DISPLAY NUM
+        // DISPLAY THE CURRENT TPS
         document.getElementById("value").innerHTML = this.num.getNum();
         document.getElementById("currTPS").innerHTML = this.jsTPS.toString();
     }
